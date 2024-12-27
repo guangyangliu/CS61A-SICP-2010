@@ -1,0 +1,26 @@
+#lang simply-scheme
+
+(define (zero? arg)
+  (apply-generic op arg))
+
+;scheme-number
+
+(define (zero? n)
+  (equ? n 0))
+
+(put 'zero? '(scheme-number) zero?)
+
+;rational
+(define (zero? n)
+  (equ? (add-rat n n)
+     (sub-rat n n)))
+
+ (put 'zero? '(rational) zero?)
+
+
+;complex
+(define (zero? n)
+  (equ? (add-complex n n)
+     (sub-complex n n)))
+
+  (put 'zero? '(complex) zero?)

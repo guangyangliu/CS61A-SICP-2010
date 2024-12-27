@@ -1,0 +1,8 @@
+#lang simply-scheme
+
+;new answer
+(define f
+  (let ((history (/ -1 2)))
+    (lambda (x)
+      (set! history (+ x history))
+      history)))

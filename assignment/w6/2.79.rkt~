@@ -1,0 +1,25 @@
+#lang simply-scheme
+
+
+;number
+(define (equ? x y)
+  (= x y))
+
+(put 'equ? '(scheme-number scheme-number) (lambda (x y) (= x y)))
+
+;rational
+(define (equ? x y)
+  (= (sub-rat x y) 0))
+
+(put 'equ? '(rational rational)
+     (lambda (x y) (= (sub-rat x y) 0)))
+
+;complex
+(define (equ? z1 z2)
+  (= (sub-complex z1 z2) 0))
+
+(put 'equ? '(complex complex)
+     (lambda (x y) (= (sub-complex z1 z2) 0)))
+
+
+(define (equ? x y) (apply-generic 'equa? x y))

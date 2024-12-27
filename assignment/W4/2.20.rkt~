@@ -1,0 +1,26 @@
+#lang simply-scheme
+
+(define (same-parity x . y)
+  (cond ((null? x) '())
+        ((even? x) (cons x (evenlist y)))
+        (else (cons x (oddlist y)))))
+
+(define (evenlist y)
+  (cond ((null? y) '())
+        ((even? (car y)) (cons (car y) (evenlist (cdr y))))
+        (else (evenlist (cdr y)))))
+
+(define (oddlist y)
+  (cond ((null? y) '())
+        ((odd? (car y)) (cons (car y) (oddlist (cdr y))))
+        (else (oddlist (cdr y)))))
+
+
+
+(oddlist '(1 2 3 4 5 6 7))
+(evenlist '(1 2 3 4 5 6 7))
+
+(same-parity 1 2 3 4 5 6 7)
+(same-parity 2 3 4 5 6 7)
+(same-parity 1)
+(same-parity '())

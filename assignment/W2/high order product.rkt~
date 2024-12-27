@@ -1,0 +1,20 @@
+#lang simply-scheme
+
+(define (product term a next b)
+  (if (= a b)
+      (term a)
+      (* (term b)
+         (product term a next (next b)))))
+
+(define (factorial_term y)
+  y)
+
+(define (next y)
+  (- y 1))
+
+(define (pi_term x)
+  (* (/ (* 2 x) (+ 1 (* 2 x)))
+     (/ (+ 2 (* 2 x)) (+ 1 (* 2 x)))))
+
+(product factorial_term 1 next 10)
+(* 4.0 (product pi_term 1 next 10000))

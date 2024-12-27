@@ -1,0 +1,17 @@
+#lang simply-scheme
+
+
+(define (switch x)
+  (if (empty? x)
+      '()
+      (se (zh(first x))
+          (switch (bf x)))))
+
+(define (zh wd)
+      (cond ((equal? wd 'you) 'me)
+            ((equal? wd 'You) 'I)
+            ((equal? wd 'I) 'you)
+            ((equal? wd 'me) 'you)
+            (else wd)))
+
+(switch '(You told me that I should wake you up))

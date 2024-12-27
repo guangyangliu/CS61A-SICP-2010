@@ -1,0 +1,77 @@
+#lang simply-scheme
+
+(define (make-mobile left right)
+  (cons left right))
+
+(define (make-branch length structure)
+  (cons length structure))
+
+(define (left-branch mobile)
+  (car mobile))
+
+(define (right-branch mobile)
+  (cdr mobile))
+
+(define (branch-length branch)
+  (car branch))
+
+(define (branch-structure branch)
+  (cdr branch))
+
+
+(define (weight number) number)
+
+(define a
+  (make-mobile
+   (make-branch 1 (weight 2))
+   (make-branch 3 (make-mobile
+                   (make-branch 4 (weight 5))
+                   (make-branch 6 (weight 7))))))
+
+a
+
+
+(define (total-weight mobile)
+  (cond ((null? mobile) 0)
+        ((pair? mobile)
+         (+ (total-weight (branch-structure (left-branch mobile)))
+                 (total-weight (branch-structure (right-branch mobile)))))
+        (else mobile)))
+
+;先前用number判断 mobile很奇怪
+;但用else即mobile不为空也不为pair的其它情况下返回它本身，其实就是最底部的basecase了
+
+
+;(trace total-weight)
+(total-weight a)
+
+;balanced
+;mobile balanced: (= (* topleft-lenth weight) (* topright-lenth weight))
+;map submobile
+
+(define (topbalance mobile)
+  (equal? (* (branch-length (left-branch mobile))
+             (total-weight (branch-structure (left-branch mobile))))
+          (* (branch-length (right-branch mobile))
+             (total-weight (branch-structure (right-branch mobile))))))
+
+(define (mobalance mobile)
+  (cond ((null? mobile) #t)
+        ((pair? mobile)
+         (and (topbalance mobile)
+              (mobalance (branch-structure (left-branch mobile)))
+              (mobalance (branch-structure (right-branch mobile)))))
+        (else #t)))
+       
+(topbalance a)
+(mobalance a)
+
+(define b
+  (make-mobile
+   (make-branch 6 (weight 3))
+   (make-branch 3 (make-mobile
+                   (make-branch 3 (weight 3))
+                   (make-branch 3 (weight 3))))))
+
+(topbalance b)
+(mobalance b)

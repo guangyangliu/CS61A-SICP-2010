@@ -1,0 +1,19 @@
+(define-class (coke-machine size price)
+  (instance-vars (cokes 0) (money 0))
+  (method (deposit cents)
+          (set! money (+ money cents)))
+  (method (coke)
+          (cond ((< money price) "not enough money")
+                ((= cokes 0) "machine empty")
+                (else (let ((change (- money price)))
+                        (set! money 0)
+                        (set! cokes (- cokes 1))
+                        change))))
+  (method (fill number)
+          (let ((new (+ cokes number)))
+            (set! cokes (if (> new size) size new)))))
+
+
+
+
+

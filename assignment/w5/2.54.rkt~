@@ -1,0 +1,23 @@
+#lang simply-scheme
+
+(define (newequal? a b)
+  (cond ((null? a) (if (null? b) #t #f))
+        ((pair? a)
+         (and (newequal? (car a) (car b))
+              (newequal? (cdr a) (cdr b))))
+        (else (eq? a b))))
+        
+(newequal? '(this is a list) '(this is a list))
+(newequal? '(this is a list) '(this (is a) list))
+
+(newequal? '() '())
+
+(newequal? #t #f)
+
+(define a (list 1 2 3))
+(define b (list 1 2 3))
+(newequal? a b)
+
+(trace newequal?)
+(newequal? a b)
+(eq? a b)

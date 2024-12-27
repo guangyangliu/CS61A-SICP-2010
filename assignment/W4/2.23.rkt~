@@ -1,0 +1,4 @@
+#lang simply-scheme
+
+(for-each (lambda (x) (display (negative? x)) (newline) )
+          (list 57 321 88))

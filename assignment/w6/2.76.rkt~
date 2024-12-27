@@ -1,0 +1,12 @@
+#lang simply-scheme
+
+generic dispatch
+每次新增数据类型或者运算，都要涉及对原公式的修改，容易增加原公式bug的风险。
+
+data directed programming
+每次新增数据类型或者运算时，需加载相应的package，和增加新的运算公式
+感觉适合需要大量增加type的软件
+
+meseege passing
+不知道
+感觉适合需要大量增加opeartion的软件

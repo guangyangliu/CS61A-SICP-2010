@@ -1,0 +1,13 @@
+#lang simply-scheme
+
+(define (make-center-percent center percent)
+  (cons (- center (* center percent))(+ center (* center percent))))
+
+(make-center-percent 10 0.1)
+
+
+(define (center x)
+  (/ (+ (car x)  (car (cdr x))) 2))
+
+(define (percent x)
+  (/ (- (center x) (car x)) (center x)))

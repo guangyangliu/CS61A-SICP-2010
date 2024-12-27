@@ -1,0 +1,22 @@
+#lang simply-scheme
+
+(define (substitute alist old new)
+  (cond ((null? alist) '())
+        ((equal? alist old) new)
+        ((pair? alist)
+         (cons (substitute (car alist) old new)
+               (substitute (cdr alist) old new)))
+        (else alist)))
+
+(substitute '((lead guitar) (bass guitar) (rhythm guitar) drums) 'guitar 'axe)
+
+(define (substitute2 alist olist nlist)
+  (if (null? olist)
+      alist
+      (substitute2
+       (substitute alist (car olist) (car nlist))
+       (cdr olist)
+       (cdr nlist))))
+
+
+(substitute2 '((4 calling birds) (3 french hens) (2 turtle doves)) '(1 2 3 4) '(one two three four))

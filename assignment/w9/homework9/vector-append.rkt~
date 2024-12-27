@@ -1,0 +1,28 @@
+#lang sicp
+
+(define (vector-append vec1 vec2)
+  (define (loop newvec newlength vec veclength)
+    (if (= veclength 0)
+        #t ;do nothing
+        (begin
+          (vector-set! newvec (- newlength 1) (vector-ref vec (- veclength 1)))
+          (loop newvec (- newlength 1) vec (- veclength 1)))))
+  (let ((vec1length (vector-length vec1))
+        (vec2length (vector-length vec2)))
+    (let ((newlength (+ vec1length vec2length))
+          (newvec (make-vector (+ vec1length vec2length))))
+    (begin (loop newvec newlength vec2 vec2length)
+           (loop newvec vec1length vec1 vec1length)
+           newvec))))
+
+(define vec1 '#(1 2 3))
+(define vec2 '#(4 5 6))
+vec1
+vec2    
+(vector-append vec1 vec2)
+
+
+
+
+    
+      

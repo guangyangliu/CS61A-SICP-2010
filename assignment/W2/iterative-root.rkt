@@ -1,0 +1,48 @@
+#lang simply-scheme
+
+
+(define (double f)
+  (lambda (x) (f (f x))))
+
+
+(define (inc x)
+  (+ 1 x))
+
+((double inc) 5)
+
+(((double (double double)) inc) 5)
+
+((double (double (double inc))) 5)
+
+
+(define (repeate f n)
+    (if (= 1 n)
+      f
+      (lambda (x) (f ((repeate f (- n 1)) x)))))
+
+(define (square x)
+  (* x x))
+
+((repeated square 2) 5)
+
+(define (iterative-improve good_enough? update guess number)
+  (if (good_enough? guess number)
+      guess
+      (iterative-improve good_enough? update (update guess number) number)))
+
+(define (good_enough? guess number)
+  (< (abs (- (* guess guess) number)) 0.001))
+
+(define (update guess number)
+  (/ (+ guess (/ number guess)) 2.0))
+
+(define (sqrt x)
+  (iterative-improve good_enough? update 1 x))
+
+(sqrt 9)
+(sqrt (+ 100 37))
+(sqrt (+ (sqrt 2) (sqrt 3)))
+(square (sqrt 1000))
+
+
+  

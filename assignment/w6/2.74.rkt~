@@ -1,0 +1,28 @@
+#lang simply-scheme
+
+;generic operation
+(define (get-record division-name employee-name))
+(define (get-salary division-name employee-name))
+(define (find-employee-record name))
+
+;division datastructure
+;internal procedures
+(define (get-record employee-name)
+  ;return record)
+(define (get-salary employee-name)
+  (cdr (get-record name)))
+ 
+;interface with system
+(define (tag record)
+  (attach-tag 'divisionname record))
+  
+(define (make-record name address salary)
+  (cons name address salary))
+
+;(get divisonname employeename)
+
+
+
+  
+
+

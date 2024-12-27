@@ -1,0 +1,101 @@
+#lang simply-scheme
+
+(define (make-mobile left right)
+  (list left right))
+
+(define (make-branch length structure)
+  (list length structure))
+
+;a
+(define (left-branch mobile)
+  (car mobile))
+
+(define (right-branch mobile)
+  (cadr mobile))
+
+(define (branch-length branch)
+  (car branch))
+
+(define (branch-structure branch)
+  (cadr branch))
+
+
+(define (weight number) number)
+
+(define a
+  (make-mobile
+   (make-branch 1 (weight 2))
+   (make-branch 3 (make-mobile
+                   (make-branch 4 (weight 5))
+                   (make-branch 6 (weight 7))))))
+
+a
+
+;b
+(define (total-weight mobile)
+  (cond ;((null? mobile) '())
+        ((number? mobile) mobile)
+;        ((number? (branch-structure (left-branch mobile)))
+;         (+ (branch-structure (left-branch mobile))
+;            (total-weight (branch-structure (right-branch mobile)))))
+        (else (+ (total-weight (branch-structure (left-branch mobile)))
+                 (total-weight (branch-structure (right-branch mobile)))))))
+;这道题从5点做到8点3个多小时的原因在于：
+;没理解递归函数的domain
+;没找准tree类数据结构的basecase,在二叉树里叶节点是basecase，也是树枝为空的树
+
+
+
+;(trace total-weight)
+(total-weight a)
+
+;balanced
+;mobile balanced: (= (* topleft-lenth weight) (* topright-lenth weight))
+;map submobile
+
+;c
+(define (topbalance mobile)
+  (equal? (* (branch-length (left-branch mobile))
+             (total-weight (branch-structure (left-branch mobile))))
+          (* (branch-length (right-branch mobile))
+             (total-weight (branch-structure (right-branch mobile))))))
+
+(define (mobalance mobile)
+  (cond ((null? mobile) '())
+        ((pair? mobile)
+         (and (topbalance mobile)
+              (mobalance (branch-structure (left-branch mobile)))
+              (mobalance (branch-structure (right-branch mobile)))))
+        (else #t)))
+       
+(topbalance a)
+(mobalance a)
+
+(define b
+  (make-mobile
+   (make-branch 6 (weight 3))
+   (make-branch 3 (make-mobile
+                   (make-branch 3 (weight 3))
+                   (make-branch 3 (weight 3))))))
+
+(topbalance b)
+(mobalance b)
+
+;d
+;(define (make-mobile left right)
+;  (cons left right))
+;
+;(define (make-branch length structure)
+;  (cons length structure))
+;
+;(define (left-branch mobile)
+;  (car mobile))
+;
+;(define (right-branch mobile)
+;  (cdr mobile))
+;
+;(define (branch-length branch)
+;  (car branch))
+;
+;(define (branch-structure branch)
+;  (cdr branch))
